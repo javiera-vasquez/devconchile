@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html ng-app="DevConSpa">
+<head>
+	<meta charset="utf-8" />
+	<title>Single Page Application</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+	<script type="text/javascript" src="controllers/SpaController.js"></script>
+	<script type="text/javascript" src="controllers/UsersController.js"></script>
+</head>
+<body>
+	<div id="nav">
+		<a ui-sref="state1">Página 1</a>
+		<a ui-sref="state2">Página 2</a>
+	</div>
+	<div ui-view></div>
+</body>
+</html>

@@ -1,32 +1,61 @@
 angular
 	.module("DevTodoApp", ["LocalStorageModule"])
-	.controller("DevTodoController", ["$scope","localStorageService", function (vm, localStorageService) {
+	.service("DevTodoService", function(localStorageService) {
+
+		this.key = "DevConTodo-service";
+		this.list =[];
+
+		if (localStorageService.get(this.key)) {
+			this.list = localStorageService.get(this.key);
+		} else{
+			this.list = [];
+		};
+
+		this.add = function (newTask) {
+			this.list.push(newTask);
+			this.update();
+		};
+
+		this.update = function () {
+			localStorageService.set(this.key, this.list);
+		}
+
+		this.clean = function () {
+			this.list = [];
+			this.update();
+		}
+
+		this.getAll = function () {
+			return this.list;
+		}
+
+		this.removeElem = function (elem) {
+			this.list = this.list.filter(function (e) {
+				return e != elem;
+
+			});
+			this.update();
+			return this.getAll();
+		}
+	})
+	.controller("DevTodoController", ["$scope","DevTodoService", function (vm, DevTodoService) {
 		vm.title = "TODO - DEVCON";
 
-		if (localStorageService.get("DevConTodo")) {
-			vm.list = localStorageService.get("DevConTodo");
-		} else{
-			vm.list = [];
-		};
-		vm.newTask = {};
-
-		vm.$watchCollection('list', function (newValue, oldValue) {
-			localStorageService.set("DevConTodo", vm.list);
-		});
+		vm.list = DevTodoService.getAll();
 
 		vm.addTask = function () {
-			vm.list.push(vm.newTask);
-			vm.newTask = {};
+			DevTodoService.add(vm.newTask);
 		}
 
 		vm.removeTasks = function () {
-			vm.list = [];
-			//localstorageMethod
-			//localStorageService.clearAll();
+			vm.list = DevTodoService.clean();
 		}
 
-	}]).filter("toUpperCase", function() {
-		return function (text) {
-			return text.toUpperCase();
+		vm.removeElem = function (elem) {
+			vm.list = DevTodoService.removeElem(elem);
 		}
-	});
+
+
+
+
+	}]);

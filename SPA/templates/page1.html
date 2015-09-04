@@ -1,0 +1,9 @@
+<div id="page1-content" ng-controller="UsersController">
+	<p>Página 1: {{ welcome }}</p>
+	<ul>
+		<li ng-repeat="post in posts">
+			<strong>{{ post.title }}</strong>
+			<p> {{ post.body }}</p>
+		</li>
+	</ul>
+</div>
