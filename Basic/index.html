@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="DevConApp">
+<head>
+	<meta charset="UTF-8" />
+	<title>DevConf - Introducción AngularJS</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+	<script type="text/javascript" src="controllers/controllers.js"></script>
+</head>
+<body>
+	<div ng-controller="FirstController" style="display:none">
+		
+		<input type="text" ng-model="newPost.text" />
+		<input type="text" ng-model="newPost.username" />
+		<button ng-click="addPost();">Add Post</button>
+
+		<ul>
+			<li ng-repeat="post in posts">
+				{{ post.username }} - {{ post.text}} 
+			</li>
+			
+		</ul>
+	</div>
+
+	<div ng-controller="SecondController">
+		<div id="add-user">
+			<input type="text" ng-model="newUser.name" placeholder="name"/>
+			<input type="text" ng-model="newUser.username" placeholder="username"/>
+			<input type="text" ng-model="newUser.email" placeholder="email"/>
+			<button ng-click="addUser()">Add User</button>
+		</div>
+		<div id="api-content">
+				<table class="table table-striped" ng-if="error == null">
+					<th>
+						<tr>
+							<td>Nombre Completo</td>
+							<td>Nombre Usuario</td>
+							<td>Email</td>
+							<td>Dirección</td>
+						</tr>
+					</th>
+				<tbody>
+					<tr ng-repeat="user in users">
+						<td>{{ user.name }}</td>
+						<td>{{ user.username}}</td>
+						<td>{{ user.email}}</td>
+						<td>{{ user.address.street}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div ng-if="error != null" class="alert alert-danger">
+			{{ error }}
+		</div>
+	</div>
+</body>
+</html>
